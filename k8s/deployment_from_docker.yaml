@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-list-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: todo-list
+  template:
+    metadata:
+      labels:
+        app: todo-list
+    spec:
+      containers:
+      - name: todo-list
+        image: majishms/todo-list:${env.BUILD_NUMBER}
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: dockerhublogin
